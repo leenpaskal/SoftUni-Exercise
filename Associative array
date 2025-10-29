@@ -1,0 +1,19 @@
+function solve(arr){
+
+    let assocArr = {};
+
+    for(let item of arr){
+    
+        let tokens = item.split(' ');
+        [firstName, phone] = tokens;
+
+        assocArr[firstName] = phone;
+
+
+    }
+
+    for(let key in assocArr){
+        console.log(`${key} -> ${assocArr[key]}`)
+    }
+
+}
