@@ -1,0 +1,21 @@
+function solve(arr){
+
+    let addressBook = {};
+
+    for(let item of arr){
+
+        let [nameOf, addresOf] = item.split(":");
+
+        addressBook[nameOf] = addresOf; 
+
+    }
+
+    let sortedAscArray = Object.entries(toAssociativeArray);
+    sortedAscArray.sort((a,b) => a[0].localeCompare(b[0]));
+
+    for(let [key,value] of sortedAscArray){
+        console.log(`${key} -> ${value}`);
+    }
+
+
+}
