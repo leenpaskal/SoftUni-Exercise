@@ -1,0 +1,23 @@
+function solve(arr){
+
+    let assocArray = {};
+
+for(let item of arr){
+    let tokens = item.split(' ');
+
+    [dayOf, nameOf] = tokens;
+
+    if(assocArray.hasOwnProperty(dayOf)){
+        console.log(`Conflict on ${dayOf}!`);
+    } else {
+        assocArray[dayOf] = nameOf;
+        console.log(`Scheduled for ${dayOf}`);
+    }
+
+}
+
+for(let key in assocArray){
+    console.log(`${key} -> ${assocArray[key]}`);
+}
+
+}
