@@ -1,0 +1,23 @@
+function solve(arr){
+
+    let productsMap = new Map ();
+
+for(let item of arr){
+
+    let [product, quantity] = item.split(' ');
+    quantity = Number(quantity);
+
+    if(!productMap.has(product)){
+        productMap.set(product,quantity)
+    } else {
+        let currentQuantity = map.get(product)
+        let newQuantity = currentQuantitiy + quantity;
+        productMap.set(product,newQuantity);
+    }
+}
+
+for(let [key,value] of productMap){
+    console.log(`${key} -> ${value}`);
+}
+
+}
