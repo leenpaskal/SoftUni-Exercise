@@ -1,0 +1,34 @@
+function solve(array){
+
+    let uniAndId = {}
+
+for(let item of array){
+    let [uni,id] = item.split(" -> ");
+
+    if(uni in uniAndId){
+        if(!uniAndId[uni].includes(id)){
+        uniAndId[uni].push(id);
+        }
+    } else {
+        uniAndId[uni] = [id];
+    }
+
+}
+
+let sortedUni = Object.entries(uniAndId).sort((a,b) => a[0].localeCompare(b[0]));
+
+for(let item of sortedUni){
+    console.log(item[0]);
+
+    for(let items of item[1]){
+        console.log(`-- ${items}`);
+    }
+}
+
+}
+
+solve(['SoftUni -> AA12345',
+    'SoftUni -> BB12345',
+    'Microsoft -> CC12345',
+    'HP -> BB12345' 
+]);
