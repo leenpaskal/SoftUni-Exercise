@@ -1,0 +1,24 @@
+function solve(array){
+
+let materialsQty = {};
+
+for (let i = 0; i < array.length; i += 2) {
+
+    let material = array[i];
+    let quantity = Number(array[i+1]);
+
+    if(material in materialsQty){
+        materialsQty[material] += quantity;
+    } else {
+        materialsQty[material] = quantity;
+    }
+}
+
+let toArr = Object.entries(materialsQty);
+
+for(let [material,quatity] of toArr){
+    console.log(`${material} -> ${quatity}`);
+}
+
+
+}
