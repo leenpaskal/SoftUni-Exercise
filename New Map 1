@@ -1,0 +1,22 @@
+function oodOccurences(input){
+
+let wordOccurances = new Map();
+let words = input.toLowerCase().split(' ');
+
+for(let word of words){
+    if(wordOccurances.has(word)){
+        let currentOccurances = wordOccurances.get(word);
+        wordOccurances.set(word, currentOccurances + 1);
+    } else {
+        wordOccurances.set(word,1);
+    }
+}
+
+    let entries = Array.from(wordOccurances.entries()).filter(entry => entry[1] % 2 !== 0);
+    let filteredWords = entries.map(entry => entry[0]);
+    console.log(filteredWords.join(" "));
+    
+
+}
+
+oodOccurences('Java C# Php PHP Java PhP 3 C# 3 1 5 C#');
