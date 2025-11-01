@@ -1,0 +1,56 @@
+function patryAtSoftuni(input){
+
+    let guestsComing = [];
+
+    let notComing = {
+        vip: [],
+        regular: [],
+    };
+
+    let incomingGuests;
+
+    for(let line of input){
+
+        if(line === "PARTY"){
+            let index = input.indexOf(line);
+           incomingGuests = input.splice((index+1), );
+            break;
+        } else {
+            guestsComing.push(line);
+        }
+    }
+
+    for(let line of incomingGuests){
+        if(guestsComing.includes(line)){
+            let index = guestsComing.indexOf(line);
+            guestsComing.splice(index,1);
+        }
+    }
+
+    console.log(guestsComing.length);
+    
+    for(let line of guestsComing){
+        if(line[0] % 1 === 0){
+            notComing['vip'].push(line);
+        } else {
+            notComing['regular'].push(line);
+        }
+    }
+
+    console.log(notComing['vip'].join('\n'));
+    console.log(notComing['regular'].join('\n'));
+
+
+
+}
+patryAtSoftuni([
+'7IK9Yo0h',
+'9NoBUajQ',
+'Ce8vwPmE',
+'SVQXQCbc',
+'tSzE5t0p',
+'PARTY',
+'9NoBUajQ',
+'Ce8vwPmE',
+'SVQXQCbc'
+]);
