@@ -1,0 +1,30 @@
+function solve(arr){
+
+    let myMap = new Map();
+
+    for(let item of arr){
+
+        if(!myMap.has(item)){
+            myMap.set(item,1);
+        } else {
+            let quatity = myMap.get(item);
+            let newQuatity = quatity+1;
+            myMap.set(item,newQuatity);
+        }
+    }
+
+    let sortedArr = Array.from(myMap).sort((a,b) => b[1] - a[1]);
+
+    for(let item of sortedArr){
+        console.log(`${item[0]} -> ${item[1]} times`);
+    }
+
+    
+
+}
+
+solve(["Here", "is", "the", "first", "sentence",
+
+"Here", "is", "another", "sentence", "And",
+
+"finally", "the", "third", "sentence"])
