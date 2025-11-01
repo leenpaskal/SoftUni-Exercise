@@ -1,0 +1,35 @@
+function solve(arr){
+
+    let map = new Map ();
+
+for(let item of arr){
+
+    let [studentName, ...grades] = item.split(' ');
+
+    if(!map.has(studentName)){
+        map.set(studentName, grades);
+    } else {
+        let currentGrades = map.get(studentName);
+        currentGrades.push(...grades);
+        map.set(studentName,currentGrades);
+    }
+}
+
+for (let [name, arr] of map) {
+  let avg = arr.reduce((a, b) => a + Number(b), 0) / arr.length;
+  map.set(name, Number(avg.toFixed(2)));
+}
+
+let sortedArr = Array.from(map).sort((a,b) => a[0].localeCompare(b[0]));
+
+for(let item of sortedArr){
+    console.log(`${item[0]}: ${item[1].toFixed(2)}`);
+}
+    
+
+}
+
+solve(['Lilly 4 6 6 5',
+'Tim 5 6',
+'Tammy 2 4 3',
+'Tim 6 6'])
