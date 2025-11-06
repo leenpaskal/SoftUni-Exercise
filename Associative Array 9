@@ -1,0 +1,67 @@
+function garage(input){
+
+let leaders = {};
+
+for(let line of input){
+
+    if(line.includes("arrives")){
+        let leader = line.replace(" arrives", "");
+        leaders[leader] = {};
+    } else if(line.includes(":")){
+        let [leader, rest] = line.split(": ");
+        let [army, count] = rest.split(", ");
+        count = Number(count);
+
+        if(leaders.hasOwnProperty(leader)){
+            leaders[leader][army] = count;
+        }
+    } else if(line.includes("+")){
+        let [army, count] = line.split(" + ");
+        count=Number(count);
+
+        for(let leader in leaders){
+            if(leaders[leader].hasOwnProperty(army)){
+                leaders[leader][army] += count;
+            }
+        }
+    } else if(line.includes("defeated")){
+        let leader = line.replace(" defeated", "");
+        delete leaders[leader];
+    }
+}
+
+    let sortedLeaders = Object.entries(leaders)
+        sortedLeaders.sort((a,b) => {
+        let totalA = Object.values(a[1]).reduce((sum,x) => sum + x, 0);
+        let totalB = Object.values(b[1]).reduce((sum, x) => sum + x, 0);
+        return totalB - totalA;
+        });
+
+    for(let[leader,army] of sortedLeaders){
+        let totalArmy = Object.values(army).reduce((a,b) => a+b, 0);
+        console.log(`${leader}: ${totalArmy}`);
+
+        Object.entries(army)
+        .sort((a,b) => b[1] - a[1])
+        .forEach(([army, count]) =>{
+            console.log(`>>> ${army} - ${count}`);
+        });
+    }
+
+}
+
+garage([
+    'Rick Burr arrives',
+    'Fergus: Wexamp, 30245',
+    'Rick Burr: Juard, 50000',
+    'Findlay arrives',
+    'Findlay: Britox, 34540',
+    'Wexamp + 6000',
+    'Juard + 1350',
+    'Britox + 4500',
+    'Porter arrives',
+    'Porter: Legion, 55000',
+    'Legion + 302',
+    'Rick Burr defeated',
+    'Porter: Retix, 3205'
+])
