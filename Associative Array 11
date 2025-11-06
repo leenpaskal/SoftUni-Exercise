@@ -1,0 +1,80 @@
+function comments (input){
+
+let articles = {};
+let usersToCheck = {};
+
+    for(let line of input){
+
+        let users = {
+            "name":"",
+            "title":"",
+            "content":""
+        };
+
+        if(line.includes("user")){
+
+            let user = line.replace("user ", "");
+            usersToCheck[user] = {};
+
+        } else if(line.includes("posts")){
+
+            let [parameters, contents] = line.split(": ");
+            let [user, article] = parameters.replace(" posts on", "").split(" ");
+            let [title, content] = contents.split(", ");
+
+            if (usersToCheck.hasOwnProperty(user) && articles.hasOwnProperty(article)){
+
+                users["name"] = user;
+                users["title"] = title;
+                users["content"] = content;
+
+                if(articles[article].length >= 1){
+                    articles[article].push(users);
+                } else {
+                articles[article] = [users];
+                }
+
+            }
+
+        } else if(line.includes("article")){
+
+            let article = line.replace("article ", "");
+            articles[article] = {};
+
+        }
+
+    }
+
+    let sortedArr = Object.entries(articles).sort((a,b) => b[1].length - a[1].length);
+    
+
+    for(let [article, content] of sortedArr){
+
+        console.log(`Comments on ${article}`)
+
+        let sortedNames = content.sort((a,b) => a["name"].localeCompare(b["name"]));
+
+        for(let comment of sortedNames){
+
+            console.log(`--- From user ${comment["name"]}: ${comment["title"]} - ${comment["content"]}`);
+
+        }
+
+    }
+
+}
+
+comments([
+    'user aUser123',
+    'someUser posts on someArticle: NoTitle, stupidComment',
+    'article Books',
+    'article Movies',
+    'article Shopping',
+    'user someUser',
+    'user uSeR4',
+    'user lastUser',
+    'uSeR4 posts on Books: I like books, I do really like them',
+    'uSeR4 posts on Movies: I also like movies, I really do',
+    'someUser posts on Shopping: title, I go shopping every day',
+    'someUser posts on Movies: Like, Ialso like movies very much'
+]);
