@@ -1,0 +1,15 @@
+function extractFile(parameter, sentance){
+
+    sentance = sentance.toLowerCase().split(" ");
+    
+    if(sentance.includes(parameter)){
+        console.log(parameter);
+    } else {
+        console.log(`${parameter} not found!`);
+    }
+
+}
+
+extractFile(
+    'javascript', 'JavaScript is the best programming language'
+);
