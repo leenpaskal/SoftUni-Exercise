@@ -1,0 +1,17 @@
+function extractFile(input){
+
+    let item = input.split("\\").filter(item => item.includes("."));
+
+    let index = item[0].lastIndexOf(".");
+
+    let firstWord = item[0].substring(0,index);
+    let secondWord = item[0].substring(index+1);
+
+    console.log(`File name: ${firstWord}`);
+    console.log(`File extension: ${secondWord}`);
+
+}
+
+extractFile(
+    'C:\\Internal\\training-internal\\Template.pptx'
+);
