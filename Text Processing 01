@@ -1,0 +1,17 @@
+function revealWords(word, sentance){
+
+    let words = word.split(", ");
+
+    for(let item of words){
+        let templage = "*".repeat(item.length);
+        sentance = sentance.replace(templage, item);
+    }
+
+    console.log(sentance);
+
+}
+
+revealWords(
+    'great, learning',
+    'softuni is ***** place for ******** new programming languages'
+);
