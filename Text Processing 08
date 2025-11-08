@@ -1,0 +1,35 @@
+function solve(input){
+
+let [firstString,secondString, replacement] = input;
+let concat = firstString + secondString;
+
+let vowels = ["a","e","o","i","u"];
+let index = 0;
+
+for(let char of concat){
+
+    if(vowels.includes(char)){
+        concat = concat.replace(char, replacement[index].toUpperCase());
+        index++;
+
+        if(index === replacement.length){
+            index = 0;
+        }
+    }
+
+}
+
+let finalPassword = concat.split("").reverse().join("");
+console.log(`Your generated password is ${finalPassword}`);
+
+}
+
+solve([
+
+'ilovepizza',
+
+'ihatevegetables',
+
+'orange'
+
+]);
