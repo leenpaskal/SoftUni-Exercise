@@ -1,0 +1,29 @@
+function solve(input){
+
+    let string = input.shift();
+    let object = {};
+
+    for(let i = 0; i < string.length; i++){
+
+        if(!object.hasOwnProperty(string[i])){
+            object[string[i]]=[i];
+        } else if(object.hasOwnProperty(string[i])){
+            object[string[i]].push(i);
+        }
+    }
+
+    for(let [char, data] of Object.entries(object)){
+
+        let stringToPrint = `${char}:`
+
+        for(let index of data){
+            stringToPrint += `${index}/`;
+        }
+
+        stringToPrint = stringToPrint.slice(0,-1);
+        console.log(stringToPrint);
+
+    }
+}
+
+solve(["abababa"]);
