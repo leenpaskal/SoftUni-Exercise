@@ -1,0 +1,23 @@
+function solve(input){
+
+    let inputOne = input.shift().charCodeAt(0); //46
+    let inputTwo = input.shift().charCodeAt(0); //64
+    let stringToCheck = input.shift();
+    let sum = 0;
+
+    for(let char of stringToCheck){
+        let charCode = char.charCodeAt(0);
+        if(charCode > Math.min(inputOne,inputTwo) && charCode < Math.max(inputOne,inputTwo)){
+            sum += charCode;
+        }
+    }
+
+    console.log(sum);
+
+}
+
+solve([
+    '.',
+    '@',
+    'dsg12gr5653feee5'
+]);
