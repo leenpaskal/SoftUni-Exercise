@@ -1,0 +1,26 @@
+function solve(input){
+
+    let arr = []
+
+    for(let line of input){
+
+        if(line === "end"){
+            break;
+        }
+
+        let [char,indexes] = line.split(":");
+        indexes = indexes.split("/").map(Number);
+
+        for(let pos of indexes){
+            arr[pos]=char;
+        }
+    }
+
+    console.log(arr.join(""));
+}
+
+solve([
+    'a:0/2/4/6',
+    'b:1/3/5',
+    'end'
+]);
