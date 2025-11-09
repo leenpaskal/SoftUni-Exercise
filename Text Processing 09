@@ -1,0 +1,26 @@
+function solve(input){
+
+    let sum = 0;
+    let [string, caseOfChar] = input;
+
+    for(let char of string){
+        if(caseOfChar === "LOWERCASE"){
+            if(/[a-z]/.test(char)){
+                let code = char.charCodeAt(0);
+                sum+=code;
+            }
+        } else if(caseOfChar === "UPPERCASE"){
+            if(/[A-Z]/.test(char)){
+                let code = char.charCodeAt(0);
+                sum+=code;
+            }
+        }
+    }
+
+    console.log(`The total sum is: ${sum}`);
+
+}
+
+solve(['AC/DC',
+
+'UPPERCASE']);
