@@ -1,0 +1,58 @@
+function solve(input){
+
+let patternForLetters = /[A-Za-z]/g;
+let patternForDigits = /[0-9]/g;
+let competitors = input.shift().split(", ");
+let command = input.shift();
+let competitiorsScore = {};
+
+while(command !== "end of race"){
+
+    let name = command.match(patternForLetters).join(""); 
+
+    if(competitors.includes(name)){
+
+        if(!competitiorsScore.hasOwnProperty(name)){
+            competitiorsScore[name] = 0;
+        }
+
+        let digits = command.match(patternForDigits);
+
+        let totalkm = 0; 
+
+        for(let num of digits){
+
+            totalkm += Number(num);
+
+        }
+
+        competitiorsScore[name]+=totalkm;
+            
+    }
+
+    command = input.shift();
+}
+
+let arrayOfScores = Object.entries(competitiorsScore).sort((a,b) => b[1] - a[1]);
+
+console.log(`1st place: ${arrayOfScores[0][0]}`);
+console.log(`2nd place: ${arrayOfScores[1][0]}`);
+console.log(`3d place: ${arrayOfScores[2][0]}`);
+
+}
+
+solve(['George, Peter, Bill, Tom',
+
+'G4e@55or%6g6!68e!!@ ',
+
+'R1@!3a$y4456@',
+
+'B5@i@#123ll',
+
+'G@e54o$r6ge#',
+
+'7P%et^#e5346r',
+
+'T$o553m&6',
+
+'end of race']);
