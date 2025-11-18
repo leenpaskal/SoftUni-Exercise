@@ -1,0 +1,62 @@
+function solve(arr){
+
+let text = arr.shift();
+
+for(let line of arr){
+
+    if(line === "Reveal"){
+        console.log(`You have a new text message: ${text}`);
+        break;
+    }
+
+    let [command, p1, p2] = line.split(":|:");
+
+    if(command === "InsertSpace"){
+
+        const index = Number(p1);
+
+        text = text.slice(0,index) + " " + text.slice(index);
+        console.log(text);
+
+    } else if (command === "Reverse"){
+
+        const substring = p1;
+
+        if(text.includes(substring)){
+
+            text = text.replace(substring, "");
+
+            let reversed = substring.split("").reverse().join("");
+
+            text = text+reversed;
+
+            console.log(text);
+
+        } else {
+
+            console.log(`error`);
+
+        }
+    } else if (command === "ChangeAll"){
+
+        let substring = p1;
+
+        let replacement = p2;
+
+        text = text.split(substring).join(replacement);
+
+        console.log(text);
+
+    }
+
+}
+
+}
+
+solve([
+'heVVodar!gniV',
+'ChangeAll:|:V:|:l',
+'Reverse:|:!gnil',
+'InsertSpace:|:5',
+'Reveal'
+]);
