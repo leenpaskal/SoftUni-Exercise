@@ -1,0 +1,54 @@
+function solve(arr){
+
+    let string = arr[0];
+    let pattern = /([@#])([A-Za-z]{3,})\1\1([A-Za-z]{3,})\1/g;
+    let arrNew = [];
+    let matches = [...string.matchAll(pattern)]
+
+    for(let line of matches){
+
+        let wordOne = line[2];
+        let wordTwo = line[3];
+
+        let reversedTwo = wordTwo.split("").reverse().join("");
+
+        if(wordOne === reversedTwo){
+
+            let toAdd = `${wordOne} <=> ${wordTwo}`;
+            arrNew.push(toAdd);
+
+        }
+
+    }
+
+    if(matches.length > 0){
+
+        console.log(`${matches.length} word pairs found!`);
+
+    } else {
+
+        console.log(`No word pairs found!`);
+
+    };
+
+    if(arrNew.length > 0){
+
+        console.log(`The mirror words are:`);
+
+        let stringToPrint = arrNew.join(", ");
+
+        console.log(stringToPrint);
+
+    } else {
+
+        console.log(`No mirror words!`);
+
+    } 
+
+}
+
+solve([
+
+'@mix#tix3dj#poOl##loOp#wl@@bong&song%4very$long@thong#Part##traP##@@leveL@@Level@##car#rac##tu@pack@@ckap@#rr#sAw##wAs#r#@w1r'
+
+]);
