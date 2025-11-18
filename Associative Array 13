@@ -1,0 +1,100 @@
+function solve(arr){
+
+    let numOfHeroes = arr.shift();
+    numOfHeroes = Number(numOfHeroes);
+    let heroes = {};
+    let heroesArr = arr.splice(0,numOfHeroes);
+
+    for(let hero of heroesArr){
+        let [heroName, HP, MP] = hero.split(" ");
+        HP = Number(HP);
+        MP = Number(MP);
+        heroes[heroName] = {hp: HP, mp: MP};
+    }
+    
+    for(let line of arr){
+
+        if(line === "End"){
+            break;
+        }
+
+        if(line.includes('CastSpell')){
+
+            let [command, heroName, manaNeeded, spellName] = line.split(" - ");
+            let currentMana = heroes[heroName]['mp'];
+            let newMana = Number(currentMana) - Number(manaNeeded);
+            
+            if(newMana >= 0){
+                heroes[heroName]['mp'] = newMana;
+                console.log(`${heroName} has successfully cast ${spellName} and now has ${newMana} MP!`);
+            } else {
+                console.log(`${heroName} does not have enough MP to cast ${spellName}!`);
+            }
+
+        } else if(line.includes('TakeDamage')){
+
+            let [command, heroName, damage, attacker] = line.split(" - ");
+            let currentHealth = heroes[heroName]['hp'];
+            let newHealth = Number(currentHealth) - Number(damage);
+            if(newHealth > 0){
+                console.log(`${heroName} was hit for ${damage} HP by ${attacker} and now has ${newHealth} HP left!`);
+            } else {
+                console.log(`${heroName} has been killed by ${attacker}!`);
+            }
+            heroes[heroName]['hp'] = newHealth;
+
+        } else if(line.includes('Recharge')){
+
+            let [command, heroName, amount] = line.split(" - ");
+            let currentMana = heroes[heroName]['mp'];
+            let newMana = Number(currentMana) + Number(amount);
+            if(newMana > 200){
+                amount = 200-currentMana;
+                newMana = 200;
+            }
+            heroes[heroName]['mp'] = newMana;
+            console.log(`${heroName} recharged for ${amount} MP!`);
+
+        } else if(line.includes('Heal')){
+
+            let [command, heroName, amount] = line.split(" - ");
+            let currentHealth = heroes[heroName]['hp'];
+            let newHealth = Number(currentHealth) + Number(amount);
+            ;
+            if(newHealth > 100){
+                amount = 100 - currentHealth;
+                newHealth = 100;
+            }
+            heroes[heroName]['hp'] = newHealth;
+            console.log(`${heroName} healed for ${amount} HP!`);
+
+        } 
+
+    }
+
+    for(let hero of Object.entries(heroes)){
+        
+        let heroHP = hero[1]['hp'];
+        heroHP = Number(heroHP);
+
+        if(heroHP > 0){
+        console.log(`${hero[0]}\n  HP: ${hero[1]["hp"]}\n  MP: ${hero[1]["mp"]}`);
+        }
+    }
+
+
+}
+
+solve([
+'4', 
+'Adela 90 150', 
+'SirMullich 70 40' ,
+'Ivor 1 111', 
+'Tyris 94 61', 
+'Heal - SirMullich - 50', 
+'Recharge - Adela - 100' ,
+'CastSpell - Tyris - 1000 - Fireball' ,
+'TakeDamage - Tyris - 99 - Fireball' ,
+'TakeDamage - Ivor - 3 - Mosquito' ,
+'End'
+]);
