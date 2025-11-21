@@ -1,0 +1,103 @@
+function solve (input) {
+
+    let assocArray = {}
+    let command = input.shift();
+
+    while(command !== "Sail"){
+        
+        let [town, people, gold] = command.split("||")
+        people = Number(people);
+        gold = Number(gold);
+        if(!assocArray.hasOwnProperty(town)){
+
+            assocArray[town] = {people: people, gold: gold};
+
+        } else {
+
+            assocArray[town].people += people;
+            assocArray[town].gold += gold;
+
+        }
+        
+
+        command = input.shift();
+    }
+
+    command = input.shift();
+
+    while(command !== "End"){
+
+        if(command.includes("Plunder")){
+
+            let [commandOf, town, people, gold] = command.split("=>");
+                    people = Number(people);
+                    gold = Number(gold);
+
+            console.log(`${town} plundered! ${gold} gold stolen, ${people} citizens killed.`);
+            let newGold = assocArray[town].gold - gold;
+            let newPopul = assocArray[town].people - people;
+
+            assocArray[town].gold = newGold;
+            assocArray[town].people = newPopul;
+            
+            if(assocArray[town].gold <= 0 || assocArray[town].people <= 0){
+                delete assocArray[town];
+                console.log(`${town} has been wiped off the map!`);
+            }
+        } else if (command.includes("Prosper")){
+
+            let [ commandOf, town, gold ] = command.split("=>");
+            gold = Number(gold);
+
+                if(gold < 0){
+                    console.log(`Gold added cannot be a negative number!`);
+                } else {
+                   let newGold = assocArray[town].gold + gold;
+                   assocArray[town].gold = newGold;  
+                   console.log(`${gold} gold added to the city treasury. ${town} now has ${newGold} gold.`);
+                }
+        }
+
+        command = input.shift();
+
+    }
+
+    let array = Object.entries(assocArray);
+
+    if(array.length > 0){
+        console.log(`Ahoy, Captain! There are ${array.length} wealthy settlements to go to:`);
+    } else {
+        console.log(`Ahoy, Captain! All targets have been plundered and destroyed!`);
+    };
+    
+    for(let [key,value] of array){
+
+        let people = Number(value.people);
+        let gold = Number(value.gold);
+
+        console.log(`${key} -> Population: ${people} citizens, Gold: ${gold} kg`);
+
+    };
+}
+
+solve(["Nassau||95000||1000",
+
+"San Juan||930000||1250",
+
+"Campeche||270000||690",
+
+"Port Royal||320000||1000",
+
+"Port Royal||100000||2000",
+
+"Sail",
+
+"Prosper=>Port Royal=>-200",
+
+"Plunder=>Nassau=>94000=>750",
+
+"Plunder=>Nassau=>1000=>150",
+
+"Plunder=>Campeche=>150000=>690",
+
+"End"]);
