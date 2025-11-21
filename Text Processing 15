@@ -1,0 +1,52 @@
+function solve(arr){
+
+    let message = arr.shift();
+
+    for(let item of arr){
+
+        if(item === "Decode"){
+
+            console.log(`The decrypted message is: ${message}`);
+            break;
+
+        }
+
+        if(item.includes("ChangeAll")){
+
+            let [command, substring, replacement] = item.split("|");
+            message = message.split(substring).join(replacement);
+            
+        } else if(item.includes("Insert")){
+
+            let [command, index, value] = item.split("|");
+            index = Number(index);
+            let messageOne = message.slice(0,index);
+            let messageTwo = message.slice(index);
+            let newMessage = messageOne+value+messageTwo;
+            message = newMessage;
+
+        } else if(item.includes("Move")){
+
+            let [command, indexToMove] = item.split("|");
+            indexToMove = Number(indexToMove);
+            let firstLetters = message.substring(0,indexToMove);
+            message = message.replace(firstLetters,"");
+            message = message + firstLetters;
+
+        }
+    }
+}
+
+solve([
+
+'zzHe',
+
+'ChangeAll|z|l',
+
+'Insert|2|o',
+
+'Move|3',
+
+'Decode'
+
+]);
