@@ -1,0 +1,42 @@
+function solve(arr){
+
+    let string = arr[0];
+
+    let pattern = /(\*\*|::)[A-Z][a-z]{2,}\1/g;
+ 
+    let patternNum = /\d/g;
+
+    let allEmoji = string.match(pattern) || [];
+
+    let treshold = 1;
+
+    let allNums = string.match(patternNum) || [];
+
+    for(let num of allNums){
+        num = Number(num);
+        treshold = treshold*num;
+    }
+
+    console.log(`Cool threshold: ${treshold}`);
+    console.log(`${allEmoji.length} emojis found in the text. The cool ones are:`);
+    
+    for(let item of allEmoji){
+
+        let word = item.match(/[A-Za-z]+/gm);
+        let stringOfWord = word[0];
+        let sum = 0;
+
+        for (let i = 0; i < stringOfWord.length; i++) {
+            let number = stringOfWord[i].charCodeAt(0);
+            sum+=number;
+        }
+
+        if(sum >= treshold){
+            console.log(item);
+        }
+
+    }
+
+}
+
+solve(["It is a long established fact that 1 a reader will be distracted by 9 the readable content of a page when looking at its layout. The point of using ::LoremIpsum:: is that it has a more-or-less normal 3 distribution of 8 letters, as opposed to using 'Content here, content 99 here', making it look like readable **English**."]);
