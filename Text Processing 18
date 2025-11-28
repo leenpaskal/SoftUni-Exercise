@@ -1,0 +1,52 @@
+function solve(arr){
+
+    let firstLine = arr.shift();
+
+    let command = arr.shift();
+
+    while(command !== "Travel"){
+
+        if(command.includes("Add Stop")){
+
+            let [commandOf, index, string] = command.split(":");
+
+            index = Number(index);
+
+            if(index >= 0 && index < firstLine.length){
+                firstLine = firstLine.substring(0, index) + string + firstLine.substring(index);
+            }
+
+            console.log(firstLine);
+
+        } else if(command.includes("Remove Stop")){
+
+            let [commandOf, index, endIndex] = command.split(":");
+
+            index = Number(index);
+            endIndex = Number(endIndex);
+
+            if(index >= 0 && endIndex < firstLine.length && index <= endIndex){
+                firstLine = firstLine.slice(0 , index) + firstLine.slice(endIndex + 1);
+            }
+
+            console.log(firstLine);
+
+        } else if(command.includes("Switch")){
+
+            let [commandOf, oddStr, newStr] = command.split(":");
+
+            if(oddStr && firstLine.includes(oddStr)){
+                firstLine = firstLine.split(oddStr).join(newStr);
+            }
+
+            console.log(firstLine);
+
+        }
+
+        command = arr.shift();
+
+    }
+
+    console.log(`Ready for world tour! Planned stops: ${firstLine}`);
+
+}
