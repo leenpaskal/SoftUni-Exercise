@@ -1,0 +1,50 @@
+function solve(string){
+
+    let toJSON = JSON.parse(string[0]);
+    let keys = Object.keys(toJSON[0]);
+
+    const esc = (x) =>
+        String(x).replace(/[&<>"]/g, ch => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;'
+        }[ch]));
+
+    
+    const header = `<tr>${keys.map(k => `<th>${esc(k)}</th>`).join('')}</tr>`;
+    const rows = toJSON
+    .map(obj => `<tr>${keys.map(k => `<td>${esc(obj[k])}</td>`).join('')}</tr>`)
+    .join('');
+
+return `<table>${header}${rows}</table>`;
+    
+
+
+
+}
+
+
+solve([`[{
+"Name":"Pesho",
+
+"Score":4,
+
+" Grade":8
+},
+
+{
+"Name":"Gosho",
+
+"Score":5,
+
+" Grade":8
+},
+
+{
+"Name":"Angel",
+
+"Score":5.50,
+
+" Grade":10
+}]`]);
